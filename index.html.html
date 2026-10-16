@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aşê Dar Bero | Food Products</title>
+<meta name="description" content="At Aşê Dar Bero, we produce premium-quality, natural food products, bringing healthy and authentic taste to your table.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1d3b2a; --green-2:#2d5a3d; --green-3:#3e7a52;
+  --gold:#d4a537; --gold-2:#e8c56a; --cream:#faf6ec;
+  --shadow-3d: 0 30px 60px -15px rgba(29,59,42,.45), 0 10px 20px -5px rgba(212,165,55,.25);
+  --gold-glow: 0 0 30px rgba(212,165,55,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Poppins',system-ui,sans-serif;
+  background:var(--cream);
+  color:var(--green);
+  overflow-x:hidden;
+  perspective:1200px;
+  transform-style:preserve-3d;
+}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* AMBIENT CANVAS (Embers & Water Droplets) */
+#ambientCanvas{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100vh;
+  pointer-events:none;
+  z-index:2;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 5vw;transition:.4s;
+  transform-style:preserve-3d;
+}
+nav.scrolled{
+  background:rgba(250,246,236,.92);
+  backdrop-filter:blur(16px);
+  box-shadow:0 12px 35px rgba(29,59,42,.15), 0 1px 0 rgba(212,165,55,.3);
+}
+nav.scrolled .nav-links a,nav.scrolled .brand-name{color:var(--green)}
+.nav-brand{display:flex;align-items:center;gap:12px;transform-style:preserve-3d}
+.nav-logo-badge{
+  width:48px;height:48px;border-radius:50%;background:#fff;padding:3px;
+  box-shadow:0 6px 18px rgba(0,0,0,.3), 0 0 0 2px var(--gold-2);
+  display:flex;align-items:center;justify-content:center;
+  transition:.3s cubic-bezier(.2,.8,.2,1);
+}
+.nav-logo-badge img{width:100%;height:100%;border-radius:50%;object-fit:contain}
+.nav-brand:hover .nav-logo-badge{transform:rotate(8deg) scale(1.08);box-shadow:0 8px 24px rgba(212,165,55,.5), 0 0 0 3px var(--gold)}
+.nav-brand-text{display:flex;flex-direction:column}
+.brand-name{font-weight:600;color:#fff;letter-spacing:.5px;font-size:1.05rem;text-shadow:0 2px 6px rgba(0,0,0,.4);line-height:1.2}
+.brand-sub{font-size:.68rem;letter-spacing:1.5px;color:var(--gold-2);text-transform:uppercase;font-weight:600}
+nav.scrolled .brand-sub{color:#946b10}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{
+  color:#fff;font-weight:500;font-size:.92rem;letter-spacing:.4px;
+  position:relative;transition:.3s;text-shadow:0 1px 4px rgba(0,0,0,.35);
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;
+  background:var(--gold);transition:.3s;box-shadow:0 0 8px var(--gold);
+}
+.nav-links a:hover::after{width:100%}
+.nav-cta{
+  background:linear-gradient(135deg,var(--gold),#b8860b);
+  color:#fff!important;padding:9px 24px;border-radius:50px;font-weight:600;
+  box-shadow:0 6px 18px rgba(212,165,55,.4), 0 2px 0 #8b6508;
+  transform:translateZ(10px);
+}
+.nav-cta:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 10px 24px rgba(212,165,55,.6)}
+.nav-cta::after{display:none}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:0}
+.burger span{width:26px;height:3px;background:var(--gold);border-radius:3px;transition:.3s}
+
+/* 3D HERO */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  background:url('images/logo2.jpg') center/cover no-repeat fixed;
+  transform-style:preserve-3d;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at center, rgba(29,59,42,.45) 0%, rgba(15,32,22,.85) 80%);
+}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(15,32,22,.65) 0%, transparent 40%, rgba(15,32,22,.9) 100%);
+}
+.hero-content{
+  position:relative;z-index:3;padding:120px 20px 80px;max-width:940px;
+  transform-style:preserve-3d;
+  transition:transform .15s ease-out;
+}
+
+/* SIGNATURE 3D HERO LOGOS TRIO */
+.hero-logos-trio{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:16px;padding:14px 28px;margin:0 auto 30px;
+  background:rgba(250,246,236,.95);
+  border-radius:999px;
+  border:2px solid rgba(212,165,55,.55);
+  box-shadow:0 25px 60px rgba(0,0,0,.55), 0 0 35px rgba(212,165,55,.35), 0 0 0 2px #fff inset;
+  backdrop-filter:blur(16px);
+  transform:translateZ(60px);
+  animation:pop 1.1s .1s both, float 5s 1.2s ease-in-out infinite;
+  transition:transform .35s ease, box-shadow .35s ease;
+}
+.hero-logos-trio:hover{
+  transform:translateZ(75px) scale(1.04);
+  box-shadow:0 35px 80px rgba(0,0,0,.68), 0 0 50px rgba(212,165,55,.55);
+  border-color:var(--gold-2);
+}
+.hero-logo-item{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  cursor:pointer;transition:transform .3s ease;
+}
+.hero-logo-item img{
+  border-radius:50%;background:#ffffff;object-fit:contain;display:block;
+  box-shadow:0 8px 22px rgba(0,0,0,.25), 0 0 0 3px rgba(212,165,55,.35);
+  transition:transform .35s ease, box-shadow .35s ease;
+}
+.hero-logo-item.side img{
+  width:clamp(65px,11vw,88px);height:clamp(65px,11vw,88px);padding:5px;
+}
+.hero-logo-item.main img{
+  width:clamp(92px,16vw,128px);height:clamp(92px,16vw,128px);padding:8px;
+  box-shadow:0 12px 30px rgba(0,0,0,.35), 0 0 0 4px var(--gold), 0 0 25px rgba(212,165,55,.45);
+}
+.hero-logo-item:hover img{
+  transform:scale(1.12) rotate(4deg);
+  box-shadow:0 16px 36px rgba(0,0,0,.45), 0 0 0 5px var(--gold-2);
+}
+.hero-logo-item .hero-logo-name{
+  font-size:.74rem;font-weight:700;letter-spacing:.6px;color:var(--green);
+  text-transform:uppercase;transition:.3s;
+}
+.hero-logo-item.main .hero-logo-name{
+  color:#946b10;font-size:.84rem;letter-spacing:.8px;
+}
+.hero-logo-divider{
+  width:2px;height:54px;
+  background:linear-gradient(180deg,transparent,rgba(212,165,55,.6),transparent);
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1px solid rgba(232,197,106,.6);color:var(--gold-2);
+  padding:8px 24px;border-radius:50px;font-size:.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:26px;
+  background:rgba(29,59,42,.45);backdrop-filter:blur(8px);
+  box-shadow:0 10px 25px rgba(0,0,0,.35), 0 0 15px rgba(212,165,55,.2) inset;
+  transform:translateZ(30px);
+  animation:fadeDown 1s .2s both;
+}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.hero h1{
+  color:#fff;font-size:clamp(2.6rem,6.5vw,4.8rem);font-weight:900;line-height:1.12;
+  text-shadow:0 15px 35px rgba(0,0,0,.6), 0 2px 4px rgba(0,0,0,.4);
+  transform:translateZ(45px);
+  animation:fadeUp 1s .4s both;
+}
+.hero h1 .gold{
+  color:var(--gold-2);font-style:italic;
+  text-shadow:0 0 30px rgba(232,197,106,.45);
+}
+.hero p{
+  color:rgba(255,255,255,.9);font-size:clamp(1rem,2vw,1.2rem);font-weight:300;
+  max-width:650px;margin:22px auto 0;line-height:1.8;
+  text-shadow:0 4px 14px rgba(0,0,0,.5);
+  transform:translateZ(35px);
+  animation:fadeUp 1s .6s both;
+}
+.hero-btns{
+  display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:40px;
+  transform:translateZ(40px);
+  animation:fadeUp 1s .8s both;
+}
+
+/* 3D TACTILE BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:14px 32px;
+  border-radius:50px;font-weight:600;font-size:.95rem;transition:.22s;
+  position:relative;cursor:pointer;transform-style:preserve-3d;
+}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),#b8860b);color:#fff;
+  box-shadow:0 14px 30px rgba(212,165,55,.45), 0 4px 0 #8b6508;
+}
+.btn-gold:hover{
+  transform:translateY(-4px) translateZ(10px);
+  box-shadow:0 20px 45px rgba(212,165,55,.6), 0 6px 0 #8b6508;
+}
+.btn-gold:active{
+  transform:translateY(2px) translateZ(0);
+  box-shadow:0 6px 15px rgba(212,165,55,.35), 0 1px 0 #8b6508;
+}
+.btn-outline{
+  border:2px solid rgba(255,255,255,.7);color:#fff;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(6px);
+  box-shadow:0 12px 30px rgba(0,0,0,.35), 0 3px 0 rgba(255,255,255,.2);
+}
+.btn-outline:hover{
+  background:#fff;color:var(--green);
+  transform:translateY(-4px) translateZ(10px);
+  box-shadow:0 20px 45px rgba(0,0,0,.45), 0 5px 0 rgba(212,165,55,.5);
+}
+.btn-outline:active{
+  transform:translateY(2px);
+  box-shadow:0 4px 12px rgba(0,0,0,.25);
+}
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,.7);font-size:1.6rem;animation:bounce 2s infinite;z-index:3;
+}
+
+/* SECTIONS */
+section{padding:100px 5vw;position:relative}
+.section-head{text-align:center;max-width:700px;margin:0 auto 60px;transform-style:preserve-3d}
+.kicker{color:var(--gold);letter-spacing:3px;text-transform:uppercase;font-size:.82rem;font-weight:600}
+.section-head h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:700;margin:14px 0 16px;color:var(--green)}
+.divider{
+  width:70px;height:4px;border-radius:4px;margin:0 auto;
+  background:linear-gradient(90deg,var(--gold),var(--green-3));
+  box-shadow:0 2px 8px rgba(212,165,55,.4);
+}
+
+/* 3D BRANDS SECTION */
+.brands{background:linear-gradient(180deg,#fff,var(--cream));perspective:1200px}
+.brand-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:38px;max-width:1150px;margin:0 auto}
+.brand-card{
+  background:linear-gradient(145deg, #ffffff, #faf6ee);
+  border-radius:28px;padding:46px 32px;text-align:center;
+  box-shadow:0 18px 45px rgba(29,59,42,.12), 0 0 0 1px rgba(212,165,55,.18) inset;
+  position:relative;overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform .28s ease-out, box-shadow .35s ease, border-color .35s ease;
+  cursor:pointer;
+}
+.brand-card::before{
+  content:'';position:absolute;top:-60px;right:-60px;width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,165,55,.2),transparent 70%);
+}
+.brand-card .card-glare{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.7) 0%, transparent 65%);
+  opacity:0;transition:opacity .3s;mix-blend-mode:overlay;z-index:4;
+}
+.brand-card:hover .card-glare{opacity:1}
+.brand-card:hover{
+  box-shadow:var(--shadow-3d), 0 0 0 2px rgba(212,165,55,.4) inset;
+}
+
+/* CIRCULAR 3D LOGO EMBLEMS */
+.brand-logo-badge{
+  width:170px;height:170px;margin:0 auto 24px;border-radius:50%;
+  background:#ffffff;padding:8px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 18px 40px rgba(29,59,42,.18), 0 0 0 4px rgba(212,165,55,.4), 0 0 25px rgba(212,165,55,.25);
+  transform:translateZ(50px);
+  transition:transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease;
+}
+.brand-logo-badge img{
+  width:100%;height:100%;object-fit:contain;border-radius:50%;display:block;
+}
+.brand-card:hover .brand-logo-badge{
+  transform:translateZ(65px) scale(1.08) rotate(3deg);
+  box-shadow:0 25px 50px rgba(29,59,42,.28), 0 0 0 6px var(--gold), 0 0 35px rgba(212,165,55,.45);
+}
+.brand-card h3{
+  font-size:1.4rem;margin-bottom:12px;color:var(--green);
+  transform:translateZ(35px);
+}
+.brand-card p{
+  color:#617265;font-size:.94rem;line-height:1.75;
+  transform:translateZ(25px);
+}
+
+/* 3D GALLERY SECTION */
+.gallery-wrap{
+  background:linear-gradient(145deg, var(--green), #102619);
+  position:relative;overflow:hidden;perspective:1200px;
+}
+.gallery-wrap::before{
+  content:'';position:absolute;top:-120px;left:-120px;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,165,55,.22),transparent 70%);
+}
+.gallery-wrap .kicker{color:var(--gold-2)}
+.gallery-wrap h2{color:#fff}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;max-width:1180px;margin:0 auto;position:relative}
+.g-card{
+  position:relative;border-radius:24px;overflow:hidden;
+  box-shadow:0 25px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(212,165,55,.3) inset;
+  aspect-ratio:4/3.1;cursor:pointer;
+  transform-style:preserve-3d;
+  transition:transform .3s ease-out, box-shadow .35s ease;
+}
+.g-card .card-glare{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.5) 0%, transparent 65%);
+  opacity:0;transition:opacity .3s;mix-blend-mode:screen;z-index:4;
+}
+.g-card:hover .card-glare{opacity:1}
+.g-card:hover{
+  box-shadow:0 35px 80px rgba(0,0,0,.65), 0 0 0 2px var(--gold-2) inset;
+}
+.g-card img{width:100%;height:100%;object-fit:cover;transition:.7s cubic-bezier(.2,.8,.2,1)}
+.g-card:hover img{transform:scale(1.1) translateZ(20px)}
+.g-overlay{
+  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:28px;
+  background:linear-gradient(180deg,transparent 35%,rgba(13,29,19,.92));
+  opacity:0;transition:.45s;transform-style:preserve-3d;
+}
+.g-card:hover .g-overlay{opacity:1}
+.g-overlay h3{
+  color:#fff;font-size:1.3rem;transform:translateZ(40px) translateY(14px);transition:.45s;
+  text-shadow:0 4px 10px rgba(0,0,0,.5);
+}
+.g-overlay span{
+  color:var(--gold-2);font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;
+  transform:translateZ(30px) translateY(14px);transition:.45s .08s;
+}
+.g-card:hover .g-overlay h3,.g-card:hover .g-overlay span{transform:translateZ(40px) translateY(0)}
+
+/* 3D ABOUT SECTION - LOGO SHOWCASE */
+.about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:65px;align-items:center;max-width:1160px;margin:0 auto;perspective:1000px}
+.about-showcase{
+  position:relative;display:flex;justify-content:center;align-items:center;
+  transform-style:preserve-3d;
+}
+.about-logo-card{
+  position:relative;
+  width:100%;max-width:380px;aspect-ratio:1/1;
+  background:linear-gradient(145deg, #ffffff, #faf5eb);
+  border-radius:40px;padding:36px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 30px 70px -15px rgba(29,59,42,.35), 0 0 0 2px rgba(212,165,55,.35) inset, 0 0 45px rgba(212,165,55,.2);
+  transform-style:preserve-3d;
+  transition:transform .35s ease-out, box-shadow .4s ease;
+  cursor:pointer;
+}
+.about-logo-card .card-glare{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.7) 0%, transparent 65%);
+  opacity:0;transition:opacity .3s;mix-blend-mode:overlay;z-index:4;
+}
+.about-logo-card:hover .card-glare{opacity:1}
+.about-logo-card:hover{
+  box-shadow:0 40px 90px -15px rgba(29,59,42,.45), 0 0 0 3px var(--gold) inset, 0 0 60px rgba(212,165,55,.35);
+}
+.about-logo-rings{
+  position:absolute;inset:18px;border-radius:32px;pointer-events:none;
+}
+.about-logo-rings .ring{
+  position:absolute;inset:0;border-radius:inherit;
+  border:1px dashed rgba(212,165,55,.35);
+  animation:spinSlow 40s linear infinite;
+}
+.about-logo-rings .ring.r2{
+  inset:8px;border:1px solid rgba(212,165,55,.2);
+  animation:spinSlow 30s linear infinite reverse;
+}
+@keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+.about-logo-circle{
+  width:230px;height:230px;border-radius:50%;background:#ffffff;
+  padding:12px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 20px 45px rgba(29,59,42,.2), 0 0 0 5px var(--gold), 0 0 30px rgba(212,165,55,.4);
+  transform:translateZ(55px);
+  transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
+  animation:float 5s ease-in-out infinite;
+}
+.about-logo-circle img{
+  width:100%;height:100%;object-fit:contain;border-radius:50%;display:block;
+}
+.about-logo-card:hover .about-logo-circle{
+  transform:translateZ(75px) scale(1.08) rotate(4deg);
+  box-shadow:0 28px 60px rgba(29,59,42,.28), 0 0 0 6px var(--gold-2), 0 0 45px rgba(212,165,55,.55);
+}
+.about-logo-badge{
+  margin-top:22px;display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--gold),#b8860b);
+  color:#fff;padding:8px 22px;border-radius:50px;font-size:.84rem;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;
+  box-shadow:0 8px 20px rgba(212,165,55,.4), 0 2px 0 #8b6508;
+  transform:translateZ(40px);
+}
+.about-logo-badge .gold-star{color:#fff;font-size:1rem}
+.about-txt{transform-style:preserve-3d}
+.about-txt h2{font-size:clamp(1.9rem,3.6vw,2.7rem);margin:14px 0 20px;line-height:1.25}
+.about-txt p{color:#5f6f63;line-height:1.9;margin-bottom:18px}
+.feat-list{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:28px 0 34px}
+.feat{
+  display:flex;gap:14px;align-items:center;background:#fff;padding:16px 18px;border-radius:18px;
+  box-shadow:0 10px 28px rgba(29,59,42,.08), 0 0 0 1px rgba(212,165,55,.15) inset;
+  transform-style:preserve-3d;
+  transition:.3s;cursor:default;
+}
+.feat:hover{
+  transform:translateY(-6px) translateZ(15px);
+  box-shadow:0 18px 38px rgba(29,59,42,.15), 0 0 0 2px var(--gold-2) inset;
+}
+.feat .ic{
+  width:42px;height:42px;min-width:42px;border-radius:12px;
+  background:linear-gradient(135deg,var(--gold),#b8860b);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;
+  box-shadow:0 8px 18px rgba(212,165,55,.4), 0 2px 0 #8b6508;
+  transform:translateZ(20px);
+}
+.feat span{font-weight:600;font-size:.92rem;transform:translateZ(10px)}
+
+/* 3D PLATFORMS */
+.platforms{
+  background:linear-gradient(135deg,var(--green),#0f2317);
+  text-align:center;position:relative;overflow:hidden;perspective:1000px;
+}
+.platforms::after{
+  content:'';position:absolute;bottom:-140px;right:-140px;width:440px;height:440px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,165,55,.16),transparent 70%);
+}
+.platforms h2{color:#fff}
+.platforms .lead{color:rgba(255,255,255,.8);max-width:560px;margin:14px auto 50px;line-height:1.8}
+.plat-grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;max-width:920px;margin:0 auto;position:relative;z-index:3}
+.plat{
+  display:flex;align-items:center;gap:13px;padding:15px 30px;border-radius:50px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);color:#fff;font-weight:500;
+  backdrop-filter:blur(8px);
+  box-shadow:0 12px 30px rgba(0,0,0,.3), 0 3px 0 rgba(255,255,255,.1);
+  transform-style:preserve-3d;
+  transition:.25s;cursor:pointer;font-family:inherit;font-size:inherit;
+}
+.plat svg{width:22px;height:22px;fill:currentColor;transition:.3s;transform:translateZ(10px)}
+.plat:hover{
+  transform:translateY(-6px) translateZ(15px) scale(1.04);
+  background:linear-gradient(135deg,var(--gold),#b8860b);
+  color:#fff;
+  box-shadow:0 18px 40px rgba(212,165,55,.5), 0 4px 0 #8b6508;
+  border-color:var(--gold-2);
+}
+.plat.wa:hover{
+  background:#25d366;color:#fff;border-color:#25d366;
+  box-shadow:0 18px 40px rgba(37,211,102,.5), 0 4px 0 #1b9c4b;
+}
+.contact-strip{margin-top:56px;display:flex;flex-wrap:wrap;gap:20px;justify-content:center;position:relative;z-index:3}
+.chip{
+  display:inline-flex;align-items:center;gap:10px;color:var(--gold-2);
+  border:1px solid rgba(232,197,106,.45);background:rgba(212,165,55,.08);
+  padding:12px 26px;border-radius:50px;font-size:.95rem;letter-spacing:.5px;
+  box-shadow:0 8px 25px rgba(0,0,0,.25), 0 2px 0 rgba(212,165,55,.2);
+  transform-style:preserve-3d;transition:.25s;cursor:pointer;font-family:inherit;
+}
+.chip:hover{
+  background:rgba(212,165,55,.2);
+  transform:translateY(-4px) translateZ(10px);
+  box-shadow:0 14px 30px rgba(212,165,55,.35);
+}
+
+/* 3D AMBIENT AUDIO CONTROLLER POD */
+.audio-pod{
+  position:fixed;bottom:24px;left:24px;z-index:99;
+  font-family:'Poppins',sans-serif;
+  transform-style:preserve-3d;
+}
+.audio-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,rgba(29,59,42,.92),rgba(13,31,21,.96));
+  color:var(--cream);border:1px solid rgba(212,165,55,.5);
+  padding:12px 20px;border-radius:50px;font-weight:600;font-size:.88rem;
+  backdrop-filter:blur(14px);
+  box-shadow:0 15px 35px rgba(0,0,0,.5), 0 0 20px rgba(212,165,55,.25), 0 3px 0 #8b6508;
+  cursor:pointer;transition:.3s;user-select:none;
+}
+.audio-btn:hover{
+  transform:translateY(-4px) scale(1.03);
+  box-shadow:0 20px 45px rgba(0,0,0,.6), 0 0 25px rgba(212,165,55,.45);
+  border-color:var(--gold-2);
+}
+.audio-eq{display:flex;align-items:flex-end;gap:3px;height:18px;width:20px}
+.audio-eq span{width:3px;height:4px;border-radius:2px;background:var(--gold);transition:height .2s}
+.audio-pod.playing .audio-eq span:nth-child(1){animation:eq .6s ease-in-out infinite alternate}
+.audio-pod.playing .audio-eq span:nth-child(2){animation:eq .45s .15s ease-in-out infinite alternate}
+.audio-pod.playing .audio-eq span:nth-child(3){animation:eq .7s .05s ease-in-out infinite alternate}
+.audio-pod.playing .audio-eq span:nth-child(4){animation:eq .5s .25s ease-in-out infinite alternate}
+@keyframes eq{0%{height:4px}100%{height:18px}}
+.audio-badge{
+  font-size:.72rem;background:rgba(212,165,55,.2);color:var(--gold-2);
+  padding:2px 8px;border-radius:12px;border:1px solid rgba(212,165,55,.4);
+}
+.audio-pod.playing .audio-badge{background:#25d366;color:#fff;border-color:#25d366}
+
+/* Expandable Audio Control Panel */
+.audio-panel{
+  position:absolute;bottom:64px;left:0;width:300px;
+  background:rgba(250,246,236,.96);color:var(--green);
+  border-radius:24px;padding:22px;
+  box-shadow:0 25px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(212,165,55,.3);
+  backdrop-filter:blur(16px);
+  opacity:0;pointer-events:none;transform:translateY(15px) scale(.95);
+  transition:.3s cubic-bezier(.2,.8,.2,1);
+}
+.audio-pod:hover .audio-panel, .audio-pod.open .audio-panel{
+  opacity:1;pointer-events:auto;transform:translateY(0) scale(1);
+}
+.audio-panel-head h4{font-size:.98rem;color:var(--green);margin-bottom:2px}
+.audio-panel-head p{font-size:.78rem;color:#6b7a6f;margin-bottom:16px}
+.audio-control-row{margin-bottom:14px}
+.ctrl-info{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;font-weight:600;margin-bottom:6px}
+.sound-mute-btn{
+  background:rgba(29,59,42,.1);border:0;color:var(--green);font-size:.72rem;
+  padding:3px 10px;border-radius:10px;cursor:pointer;font-weight:600;transition:.2s;
+}
+.sound-mute-btn.active{background:linear-gradient(135deg,var(--gold),#b8860b);color:#fff}
+.audio-control-row input[type=range]{
+  width:100%;height:6px;border-radius:4px;background:rgba(29,59,42,.15);
+  accent-color:var(--gold);outline:none;cursor:pointer;
+}
+
+/* 3D QR CODE MODAL */
+dialog#qrDlg{border:0;background:transparent;margin:auto;max-width:92vw;padding:0;outline:none}
+dialog#qrDlg::backdrop{background:rgba(13,31,21,.78);backdrop-filter:blur(10px)}
+.qr-card{
+  background:var(--cream);color:var(--green);border-radius:30px;padding:36px 30px 26px;
+  width:360px;max-width:100%;text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 2px rgba(212,165,55,.4);
+  position:relative;animation:pop .45s cubic-bezier(.2,.8,.2,1);
+  transform-style:preserve-3d;
+}
+.qr-x{
+  position:absolute;top:16px;right:18px;background:none;border:0;font-size:1.8rem;
+  color:var(--green);cursor:pointer;line-height:1;opacity:.6;transition:.2s;
+}
+.qr-x:hover{opacity:1;transform:scale(1.15)}
+.qr-badge{
+  display:inline-block;background:linear-gradient(135deg,var(--gold),#b8860b);color:#fff;
+  padding:4px 14px;border-radius:50px;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;
+  box-shadow:0 4px 12px rgba(212,165,55,.3);
+}
+.qr-card h3{font-size:1.45rem;color:var(--green);margin-bottom:6px}
+.qr-card p{font-size:.85rem;color:#5f6f63;line-height:1.5;margin-bottom:16px}
+.qr-box{
+  background:#fff;border-radius:20px;padding:14px;display:inline-block;
+  box-shadow:0 12px 35px rgba(29,59,42,.14);border:2px solid rgba(212,165,55,.3);
+  transform:translateZ(25px);
+}
+.qr-box canvas{display:block;width:220px;height:220px;max-width:100%}
+.qr-url{
+  margin-top:14px;font-size:.78rem;word-break:break-all;color:#5f6f63;
+  direction:ltr;font-family:monospace;background:rgba(29,59,42,.06);padding:8px 12px;border-radius:8px;
+}
+.qr-actions{display:flex;gap:12px;margin-top:20px}
+.qr-btn-dl{
+  flex:1.4;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,var(--gold),#b8860b);color:#fff;font-weight:600;font-size:.9rem;
+  padding:12px 18px;border-radius:50px;border:0;cursor:pointer;transition:.3s;
+  box-shadow:0 8px 25px rgba(212,165,55,.4), 0 3px 0 #8b6508;
+}
+.qr-btn-dl:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(212,165,55,.55)}
+.qr-btn-cl{
+  flex:1;background:rgba(29,59,42,.1);color:var(--green);font-weight:600;font-size:.9rem;
+  padding:12px 18px;border-radius:50px;border:0;cursor:pointer;transition:.3s;
+}
+.qr-btn-cl:hover{background:rgba(29,59,42,.18)}
+
+/* 3D FOOTER WITH BRAND LOGOS */
+footer{background:#0b1a11;color:rgba(255,255,255,.65);text-align:center;padding:50px 5vw 34px;position:relative;z-index:3}
+.f-logos-wrap{
+  display:inline-flex;align-items:center;gap:16px;padding:12px 26px;
+  border-radius:50px;background:rgba(255,255,255,.06);border:1px solid rgba(212,165,55,.3);
+  backdrop-filter:blur(10px);margin-bottom:24px;
+}
+.f-logo-item{display:flex;flex-direction:column;align-items:center;gap:5px;transition:.3s}
+.f-logo-item img{
+  border-radius:50%;background:#fff;padding:4px;object-fit:contain;transition:.3s;
+  box-shadow:0 6px 18px rgba(0,0,0,.4), 0 0 0 2px rgba(212,165,55,.3);
+}
+.f-logo-item.side img{width:52px;height:52px}
+.f-logo-item.main img{
+  width:68px;height:68px;box-shadow:0 8px 24px rgba(0,0,0,.5), 0 0 0 3px var(--gold-2);
+}
+.f-logo-item span{
+  font-size:.72rem;font-weight:600;color:var(--gold-2);letter-spacing:.5px;
+}
+.f-logo-sep{width:1px;height:38px;background:rgba(212,165,55,.3)}
+.f-logo-item:hover img{
+  transform:translateY(-4px) scale(1.1);box-shadow:0 12px 28px rgba(212,165,55,.5), 0 0 0 3px var(--gold);
+}
+footer .designer{margin-top:16px;font-size:.92rem;letter-spacing:.5px}
+footer .designer a{
+  color:var(--gold-2);
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  position:relative;
+  transition:.3s;
+  padding:3px 10px;
+  border-radius:20px;
+  background:rgba(212,165,55,.1);
+  border:1px solid rgba(212,165,55,.25);
+}
+footer .designer a:hover{
+  background:linear-gradient(135deg,var(--gold),#b8860b);
+  color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(212,165,55,.4);
+  border-color:var(--gold-2);
+}
+footer .designer a b{color:inherit}
+footer .copy{margin-top:10px;font-size:.82rem;color:rgba(255,255,255,.45)}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(46px);transition:.9s cubic-bezier(.2,.8,.2,1)}
+.reveal.visible{opacity:1;transform:none}
+.reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-24px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.4)}70%{transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes bounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,12px)}}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .about-grid{grid-template-columns:1fr;gap:70px}
+  .nav-links{
+    position:fixed;inset:0 0 auto 0;top:0;background:rgba(11,26,17,.98);
+    flex-direction:column;padding:110px 0 40px;gap:26px;transform:translateY(-110%);
+    transition:.45s;backdrop-filter:blur(14px);
+  }
+  .nav-links.open{transform:none}
+  .nav-links a{color:#fff;font-size:1.15rem}
+  .burger{display:flex;z-index:110}
+  .burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+  .burger.open span:nth-child(2){opacity:0}
+  .burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  .hero{background-attachment:scroll}
+  section{padding:70px 5vw}
+  .audio-pod{bottom:16px;left:16px}
+  .audio-panel{width:calc(100vw - 32px);left:0}
+}
+@media (max-width: 600px) {
+  .hero-logos-trio{padding:10px 18px;gap:10px;margin-bottom:24px}
+  .hero-logo-item.side img{width:58px;height:58px}
+  .hero-logo-item.main img{width:80px;height:80px}
+  .hero-logo-item .hero-logo-name{font-size:.65rem}
+  .hero-logo-divider{height:40px}
+  .f-logos-wrap{padding:10px 16px;gap:10px}
+  .f-logo-item.side img{width:42px;height:42px}
+  .f-logo-item.main img{width:56px;height:56px}
+}
+</style>
+</head>
+<body>
+
+<!-- 3D AMBIENT PARTICLES (Embers & Water Droplets) -->
+<canvas id="ambientCanvas"></canvas>
+
+<!-- FLOATING 3D AUDIO CONTROLLER (Agir & Kaniyên Avê) -->
+<div class="audio-pod" id="audioPod">
+  <button class="audio-btn" id="audioToggle" type="button" aria-label="Toggle Nature Sound">
+    <div class="audio-eq" id="audioEq">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <span class="audio-lbl" id="audioLbl">🔥💧 Dengê Xwezayê</span>
+    <span class="audio-badge" id="audioStateBadge">OFF</span>
+  </button>
+  <div class="audio-panel" id="audioPanel">
+    <div class="audio-panel-head">
+      <h4>Dengê Xwezayê (Nature Sounds)</h4>
+      <p>Agirê Firina Kevirî & Kaniyên Ava Siruştî</p>
+    </div>
+    <div class="audio-control-row">
+      <div class="ctrl-info">
+        <span>🔥 Agir (Stone Oven Fire)</span>
+        <button class="sound-mute-btn active" id="fireToggle" type="button">ON</button>
+      </div>
+      <input type="range" id="fireVol" min="0" max="100" value="70" aria-label="Fire volume">
+    </div>
+    <div class="audio-control-row">
+      <div class="ctrl-info">
+        <span>💧 Kaniyên Avê (Spring Water)</span>
+        <button class="sound-mute-btn active" id="waterToggle" type="button">ON</button>
+      </div>
+      <input type="range" id="waterVol" min="0" max="100" value="75" aria-label="Water volume">
+    </div>
+    <div class="audio-control-row master-row">
+      <div class="ctrl-info">
+        <span>🔊 Dengê Giştî (Master)</span>
+        <span id="masterVolVal">70%</span>
+      </div>
+      <input type="range" id="masterVol" min="0" max="100" value="70" aria-label="Master volume">
+    </div>
+  </div>
+</div>
+
+<nav id="nav">
+  <div class="nav-brand">
+    <div class="nav-logo-badge">
+      <img src="images/bg2.png" alt="Aşê Dar Bero logo">
+    </div>
+    <div class="nav-brand-text">
+      <span class="brand-name">Aşê Dar Bero</span>
+      <span class="brand-sub">Food Products</span>
+    </div>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#home">Home</a>
+    <a href="#brands">Our Brands</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#about">About</a>
+    <a href="#platforms">Platforms</a>
+    <a href="#qrcode" id="navQrBtn">QR Code</a>
+    <a href="#platforms" class="nav-cta">Contact Us</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-content">
+    
+    <!-- 3D HERO LOGOS TRIO -->
+    <div class="hero-logos-trio" id="heroLogos">
+      <div class="hero-logo-item side">
+        <img src="images/bg1.png" alt="Berivan logo">
+        <span class="hero-logo-name">Berivan</span>
+      </div>
+      <div class="hero-logo-divider"></div>
+      <div class="hero-logo-item main">
+        <img src="images/bg2.png" alt="Aşê Dar Bero main logo">
+        <span class="hero-logo-name">Aşê Dar Bero</span>
+      </div>
+      <div class="hero-logo-divider"></div>
+      <div class="hero-logo-item side">
+        <img src="images/bg3.png" alt="Almadinah logo">
+        <span class="hero-logo-name">Almadinah</span>
+      </div>
+    </div>
+
+    <div class="hero-badge"><span class="dot"></span> Natural · Premium · Authentic <span class="dot"></span></div>
+    <h1>Aşê <span class="gold">Dar Bero</span><br>Food Products</h1>
+    <p>At Aşê Dar Bero, we produce premium-quality, natural food products, bringing healthy and authentic taste to your table.</p>
+    <div class="hero-btns">
+      <a class="btn btn-gold" href="https://wa.me/9647514555226" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.9 2.2c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.2-.3.3-.1.6.2.3.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.9 1.8.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .7-.2 1.3z"/></svg>
+        Order on WhatsApp</a>
+      <a class="btn btn-outline" href="https://maps.app.goo.gl/4ptVUjE3CLUFquHW9?g_st=iw" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+        Find Our Location</a>
+    </div>
+  </div>
+  <div class="scroll-hint">⌄</div>
+</header>
+
+<section class="brands" id="brands">
+  <div class="section-head reveal">
+    <span class="kicker">Our Family of Brands</span>
+    <h2>Three Names, One Promise of Quality</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="brand-grid">
+    <div class="brand-card reveal d1">
+      <div class="card-glare"></div>
+      <div class="brand-logo-badge">
+        <img src="images/bg1.png" alt="Berivan logo">
+      </div>
+      <h3>Berivan</h3>
+      <p>Pure dairy goodness crafted with traditional care — fresh, natural and full of authentic village flavor.</p>
+    </div>
+    <div class="brand-card reveal d2">
+      <div class="card-glare"></div>
+      <div class="brand-logo-badge">
+        <img src="images/bg2.png" alt="Darberoo Sroshti Factory logo">
+      </div>
+      <h3>Darberoo Sroshti</h3>
+      <p>Our signature bakery — stone-oven bread and pastries baked fresh daily the authentic way.</p>
+    </div>
+    <div class="brand-card reveal d3">
+      <div class="card-glare"></div>
+      <div class="brand-logo-badge">
+        <img src="images/bg3.png" alt="Almadinah logo">
+      </div>
+      <h3>Almadinah</h3>
+      <p>A warm table and honest flavors — quality food products served with hospitality at its heart.</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-wrap" id="gallery">
+  <div class="section-head reveal">
+    <span class="kicker">Inside Our World</span>
+    <h2>From Our Oven to Your Table</h2>
+    <div class="divider" style="background:linear-gradient(90deg,var(--gold-2),#fff)"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-card reveal d1">
+      <div class="card-glare"></div>
+      <img src="images/logo1.jpg" alt="Our factory">
+      <div class="g-overlay"><span>Aşê Dar Bero</span><h3>Our Factory & Headquarters</h3></div>
+    </div>
+    <div class="g-card reveal d2">
+      <div class="card-glare"></div>
+      <img src="images/logo2.jpg" alt="Traditional stone oven baking">
+      <div class="g-overlay"><span>Darberoo Sroshti</span><h3>Traditional Stone-Oven Baking</h3></div>
+    </div>
+    <div class="g-card reveal d3">
+      <div class="card-glare"></div>
+      <img src="images/logo3.jpg" alt="Restaurant">
+      <div class="g-overlay"><span>Almadinah</span><h3>Warm Hospitality, Fresh Flavors</h3></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about-grid">
+    <div class="about-showcase reveal">
+      <div class="about-logo-card">
+        <div class="card-glare"></div>
+        <div class="about-logo-rings">
+          <div class="ring r1"></div>
+          <div class="ring r2"></div>
+        </div>
+        <div class="about-logo-circle">
+          <img src="images/bg2.png" alt="Aşê Dar Bero Official Seal">
+        </div>
+        <div class="about-logo-badge">
+          <span class="gold-star">✦</span>
+          <span>Aşê Dar Bero · Sroshti</span>
+          <span class="gold-star">✦</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-txt reveal d1">
+      <span class="kicker">Our Story</span>
+      <h2>Healthy & Authentic Taste, Made with Love</h2>
+      <p>At Aşê Dar Bero, we produce premium-quality, natural food products, bringing healthy and authentic taste to your table. From our traditional stone ovens to our fresh dairy lines, every product carries the warmth of home.</p>
+      <div class="feat-list">
+        <div class="feat"><div class="ic">🌾</div><span>100% Natural Ingredients</span></div>
+        <div class="feat"><div class="ic">🔥</div><span>Traditional Stone-Oven</span></div>
+        <div class="feat"><div class="ic">🥛</div><span>Fresh Daily Dairy</span></div>
+        <div class="feat"><div class="ic">✅</div><span>Premium Quality</span></div>
+      </div>
+      <a class="btn btn-gold" href="https://wa.me/9647514555226" target="_blank">Contact Us Today</a>
+    </div>
+  </div>
+</section>
+
+<section class="platforms" id="platforms">
+  <div class="section-head reveal" style="margin-bottom:0">
+    <span class="kicker" style="color:var(--gold-2)">Visit Our Platforms</span>
+    <h2>Follow Us & Stay Connected</h2>
+    <div class="divider" style="background:linear-gradient(90deg,var(--gold-2),#fff)"></div>
+  </div>
+  <p class="lead reveal d1">Follow our journey, see fresh products every day, and order directly through your favorite platform.</p>
+  <div class="plat-grid reveal d2">
+    <a class="plat" href="https://www.instagram.com/ashe.dar.baro?stkn=eHJ3Y3p0MTVxMjNx" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.9-.1c-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8C2.3 4 3.9 2.4 7.1 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.5a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+      Instagram</a>
+    <a class="plat" href="https://www.tiktok.com/@ashe.dar.baro?_r=1&_t=ZS-9AadSeFXW8k" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M19.6 5.8a5 5 0 0 1-3.5-3.7V1.7h-3.4v13.6a2.9 2.9 0 1 1-2-2.7V9.1a6.3 6.3 0 1 0 5.4 6.2V8.6a8.3 8.3 0 0 0 4.9 1.6V6.8c-.5 0-1-.1-1.4-.3z"/></svg>
+      TikTok</a>
+    <a class="plat" href="https://www.facebook.com/share/1FaTJKkQiG/" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+      Facebook</a>
+    <a class="plat" href="https://snapchat.com/t/JKnyI4Rt" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2c3.2 0 5.7 2.4 5.7 5.8 0 .6 0 1.3-.1 1.9.4.3 1 .4 1.6.3.6 0 1.1.4 1.2 1 0 .6-.4 1.1-1 1.3-.9.3-1.9.6-2.2 1.3-.1.3-.1.6.1.9.9 1.1 2.4 1.8 3.8 1.9.6.1 1 .6 1 1.2-.1.6-.6 1-1.2 1-1.2.2-2.5.6-3.1 1.5-.6.8-1.6 1.2-2.9 1.2-.9 0-1.7-.2-2.4-.4-.5-.2-1-.3-1.6-.3s-1.1.1-1.6.3c-.7.2-1.5.4-2.4.4-1.3 0-2.3-.4-2.9-1.2-.6-.9-1.9-1.3-3.1-1.5-.6-.1-1.1-.5-1.2-1.1 0-.6.4-1.1 1-1.2 1.4-.1 2.9-.8 3.8-1.9.2-.3.2-.6.1-.9-.3-.7-1.3-1-2.2-1.3-.6-.2-1-.7-1-1.3 0-.6.5-1 1.2-1 .6 0 1.2-.1 1.6-.3-.1-.6-.1-1.3-.1-1.9C6.3 4.4 8.8 2 12 2z"/></svg>
+      Snapchat</a>
+    <a class="plat wa" href="https://wa.me/9647514555226" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm5.4 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.9 2.2c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.2-.3.3-.1.6.2.3.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.9 1.8.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .7-.2 1.3z"/></svg>
+      WhatsApp</a>
+    <a class="plat" href="https://maps.app.goo.gl/4ptVUjE3CLUFquHW9?g_st=iw" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+      Location</a>
+    <button class="plat" id="qrOpen" type="button" aria-label="Open QR Code">
+      <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm8-2h3v3h-3v-3zm5 0h3v3h-3v-3zm-5 5h3v3h-3v-3zm5 0h3v3h-3v-3zm-2.5-2.5h3v3h-3z"/></svg>
+      QR Code</button>
+  </div>
+  <div class="contact-strip reveal d3">
+    <a class="chip" href="tel:+9647514555226">📞 +964 751 455 5226</a>
+    <a class="chip" href="https://maps.app.goo.gl/4ptVUjE3CLUFquHW9?g_st=iw" target="_blank">📍 Visit Our Factory</a>
+    <button class="chip" id="qrChipOpen" type="button">📱 Scan QR Code</button>
+  </div>
+</section>
+
+<dialog id="qrDlg" aria-label="QR Code">
+  <div class="qr-card">
+    <button class="qr-x" id="qrCloseX" type="button" aria-label="Close">&times;</button>
+    <div class="qr-badge">Aşê Dar Bero</div>
+    <h3>Scan Our QR Code</h3>
+    <p>Scan to open our website on your mobile device or share it with others.</p>
+    <div class="qr-box">
+      <canvas id="qrCanvas" width="480" height="480"></canvas>
+    </div>
+    <div class="qr-url" id="qrUrl"></div>
+    <div class="qr-actions">
+      <button class="qr-btn-dl" id="qrDl" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Download QR
+      </button>
+      <button class="qr-btn-cl" id="qrClose" type="button">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<footer>
+  <div class="f-logos-wrap">
+    <div class="f-logo-item side">
+      <img src="images/bg1.png" alt="Berivan logo">
+      <span>Berivan</span>
+    </div>
+    <div class="f-logo-sep"></div>
+    <div class="f-logo-item main">
+      <img src="images/bg2.png" alt="Aşê Dar Bero main logo">
+      <span>Aşê Dar Bero</span>
+    </div>
+    <div class="f-logo-sep"></div>
+    <div class="f-logo-item side">
+      <img src="images/bg3.png" alt="Almadinah logo">
+      <span>Almadinah</span>
+    </div>
+  </div>
+  <div>Aşê Dar Bero — Food Products · Natural · Premium · Authentic</div>
+  <div class="designer">Designed by <a href="https://www.instagram.com/hadiiyahya?vrfl=dzR4eWF0b25hdnY0" target="_blank" rel="noopener noreferrer" title="Follow Hadiiyahya on Instagram"><b>Hadiiyahya77</b> <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.9-.1c-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8C2.3 4 3.9 2.4 7.1 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.5a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg></a></div>
+  <div class="copy">© 2025 Aşê Dar Bero. All rights reserved.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+/* ----------------------------------------------------
+   1. NAVIGATION & SCROLL REVEALS
+---------------------------------------------------- */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
+const burger = document.getElementById('burger'), navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => { burger.classList.toggle('open'); navLinks.classList.toggle('open'); });
+navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  burger.classList.remove('open'); navLinks.classList.remove('open');
+}));
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+}), { threshold: .15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ----------------------------------------------------
+   2. QR CODE SYSTEM
+---------------------------------------------------- */
+var SITE_URL = ""; // E.g. "https://ashedarbero.com" or leave empty to auto-detect current URL
+(function(){
+  const dlg = document.getElementById('qrDlg');
+  const canvas = document.getElementById('qrCanvas');
+  const urlEl = document.getElementById('qrUrl');
+  if(!dlg || !canvas) return;
+
+  function renderQR(){
+    const url = SITE_URL || location.href.split('#')[0];
+    if(urlEl) urlEl.textContent = url;
+
+    if (typeof qrcode !== 'undefined') {
+      try {
+        const qr = qrcode(0, 'H');
+        qr.addData(url);
+        qr.make();
+        const n = qr.getModuleCount();
+        const q = 3;
+        const size = canvas.width;
+        const cell = Math.floor(size / (n + q * 2));
+        const off = Math.floor((size - cell * n) / 2);
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, size, size);
+        ctx.fillStyle = '#1d3b2a';
+        for (let r = 0; r < n; r++) {
+          for (let c = 0; c < n; c++) {
+            if (qr.isDark(r, c)) ctx.fillRect(off + c * cell, off + r * cell, cell, cell);
+          }
+        }
+        return;
+      } catch(e) { console.error("qr error", e); }
+    }
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=480x480&color=1d3b2a&bgcolor=ffffff&data=' + encodeURIComponent(url);
+  }
+
+  function openQR(e){
+    if(e) e.preventDefault();
+    renderQR();
+    if(typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open', '');
+  }
+  function closeQR(){
+    if(typeof dlg.close === 'function') dlg.close();
+    else dlg.removeAttribute('open');
+  }
+
+  const btnOpen = document.getElementById('qrOpen');
+  const chipOpen = document.getElementById('qrChipOpen');
+  const navQrBtn = document.getElementById('navQrBtn');
+  const btnClose = document.getElementById('qrClose');
+  const btnCloseX = document.getElementById('qrCloseX');
+  const btnDl = document.getElementById('qrDl');
+
+  if(btnOpen) btnOpen.addEventListener('click', openQR);
+  if(chipOpen) chipOpen.addEventListener('click', openQR);
+  if(navQrBtn) navQrBtn.addEventListener('click', openQR);
+  if(btnClose) btnClose.addEventListener('click', closeQR);
+  if(btnCloseX) btnCloseX.addEventListener('click', closeQR);
+  dlg.addEventListener('click', (e) => { if(e.target === dlg) closeQR(); });
+
+  if(btnDl){
+    btnDl.addEventListener('click', () => {
+      const a = document.createElement('a');
+      a.download = 'ashe-dar-bero-qr.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    });
+  }
+})();
+
+/* ----------------------------------------------------
+   3. WEB AUDIO NATURE SOUND ENGINE (Agir & Kaniyên Avê)
+---------------------------------------------------- */
+class NatureAudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.isPlaying = false;
+    this.fireEnabled = true;
+    this.waterEnabled = true;
+    this.fireVol = 0.7;
+    this.waterVol = 0.75;
+    this.masterVol = 0.7;
+
+    // Nodes
+    this.masterGain = null;
+    this.fireGain = null;
+    this.waterGain = null;
+    this.fireCrackleTimer = null;
+    this.waterDripTimer = null;
+  }
+
+  initContext() {
+    if (this.ctx) return;
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    this.ctx = new AudioContextClass();
+
+    this.masterGain = this.ctx.createGain();
+    this.masterGain.gain.setValueAtTime(this.masterVol, this.ctx.currentTime);
+    this.masterGain.connect(this.ctx.destination);
+
+    this.fireGain = this.ctx.createGain();
+    this.fireGain.gain.setValueAtTime(this.fireEnabled ? this.fireVol : 0, this.ctx.currentTime);
+    this.fireGain.connect(this.masterGain);
+
+    this.waterGain = this.ctx.createGain();
+    this.waterGain.gain.setValueAtTime(this.waterEnabled ? this.waterVol : 0, this.ctx.currentTime);
+    this.waterGain.connect(this.masterGain);
+
+    this.setupFireRumble();
+    this.setupWaterStream();
+  }
+
+  createPinkNoiseBuffer(duration = 3) {
+    const bufferSize = this.ctx.sampleRate * duration;
+    const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+    for (let i = 0; i < bufferSize; i++) {
+      const white = Math.random() * 2 - 1;
+      b0 = 0.99886 * b0 + white * 0.0555179;
+      b1 = 0.99332 * b1 + white * 0.0750759;
+      b2 = 0.96900 * b2 + white * 0.1538520;
+      b3 = 0.86650 * b3 + white * 0.3104856;
+      b4 = 0.55000 * b4 + white * 0.5329522;
+      b5 = -0.7616 * b5 - white * 0.0168980;
+      data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.11;
+      b6 = white * 0.115926;
+    }
+    return buffer;
+  }
+
+  setupFireRumble() {
+    const buffer = this.createPinkNoiseBuffer(3);
+    const source = this.ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(320, this.ctx.currentTime);
+    filter.Q.setValueAtTime(2.2, this.ctx.currentTime);
+
+    source.connect(filter);
+    filter.connect(this.fireGain);
+    source.start();
+  }
+
+  triggerFireCrackle() {
+    if (!this.isPlaying || !this.fireEnabled || !this.ctx) return;
+    const now = this.ctx.currentTime;
+    const duration = 0.018 + Math.random() * 0.04;
+    const buffer = this.ctx.createBuffer(1, Math.floor(this.ctx.sampleRate * duration), this.ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+
+    const source = this.ctx.createBufferSource();
+    source.buffer = buffer;
+
+    const filter = this.ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1400 + Math.random() * 2200, now);
+    filter.Q.setValueAtTime(3.5, now);
+
+    const gain = this.ctx.createGain();
+    const isLoudPop = Math.random() < 0.22;
+    const peakVol = (isLoudPop ? 0.9 : 0.35) * this.fireVol;
+    gain.gain.setValueAtTime(peakVol, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+    source.connect(filter);
+    filter.connect(gain);
+    gain.connect(this.fireGain);
+    source.start(now);
+  }
+
+  setupWaterStream() {
+    const buffer = this.createPinkNoiseBuffer(4);
+    const source = this.ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+
+    const filter1 = this.ctx.createBiquadFilter();
+    filter1.type = 'bandpass';
+    filter1.frequency.setValueAtTime(580, this.ctx.currentTime);
+    filter1.Q.setValueAtTime(2.4, this.ctx.currentTime);
+
+    const filter2 = this.ctx.createBiquadFilter();
+    filter2.type = 'bandpass';
+    filter2.frequency.setValueAtTime(1150, this.ctx.currentTime);
+    filter2.Q.setValueAtTime(2.8, this.ctx.currentTime);
+
+    const lfo = this.ctx.createOscillator();
+    lfo.type = 'sine';
+    lfo.frequency.setValueAtTime(0.24, this.ctx.currentTime);
+    const lfoGain = this.ctx.createGain();
+    lfoGain.gain.setValueAtTime(80, this.ctx.currentTime);
+    lfo.connect(lfoGain);
+    lfoGain.connect(filter1.frequency);
+    lfo.start();
+
+    source.connect(filter1);
+    source.connect(filter2);
+    filter1.connect(this.waterGain);
+    filter2.connect(this.waterGain);
+    source.start();
+  }
+
+  triggerWaterDrop() {
+    if (!this.isPlaying || !this.waterEnabled || !this.ctx) return;
+    const now = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+
+    const startFreq = 650 + Math.random() * 350;
+    const endFreq = startFreq + 450 + Math.random() * 400;
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(startFreq, now);
+    osc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.07);
+
+    const dropVol = (0.2 + Math.random() * 0.25) * this.waterVol;
+    gain.gain.setValueAtTime(0.001, now);
+    gain.gain.linearRampToValueAtTime(dropVol, now + 0.015);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.08);
+
+    osc.connect(gain);
+    gain.connect(this.waterGain);
+    osc.start(now);
+    osc.stop(now + 0.09);
+  }
+
+  start() {
+    this.initContext();
+    if (this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+    this.isPlaying = true;
+    this.masterGain.gain.setTargetAtTime(this.masterVol, this.ctx.currentTime, 0.1);
+
+    const scheduleCrackle = () => {
+      this.triggerFireCrackle();
+      if (this.isPlaying) {
+        this.fireCrackleTimer = setTimeout(scheduleCrackle, Math.random() * 110 + 35);
+      }
+    };
+    scheduleCrackle();
+
+    const scheduleDrop = () => {
+      this.triggerWaterDrop();
+      if (this.isPlaying) {
+        this.waterDripTimer = setTimeout(scheduleDrop, Math.random() * 1400 + 400);
+      }
+    };
+    scheduleDrop();
+  }
+
+  stop() {
+    this.isPlaying = false;
+    if (this.ctx && this.masterGain) {
+      this.masterGain.gain.setTargetAtTime(0, this.ctx.currentTime, 0.1);
+    }
+    clearTimeout(this.fireCrackleTimer);
+    clearTimeout(this.waterDripTimer);
+  }
+
+  setMaster(val) {
+    this.masterVol = val;
+    if (this.masterGain && this.ctx && this.isPlaying) {
+      this.masterGain.gain.setTargetAtTime(val, this.ctx.currentTime, 0.05);
+    }
+  }
+
+  setFire(val) {
+    this.fireVol = val;
+    if (this.fireGain && this.ctx) {
+      this.fireGain.gain.setTargetAtTime(this.fireEnabled ? val : 0, this.ctx.currentTime, 0.05);
+    }
+  }
+
+  setWater(val) {
+    this.waterVol = val;
+    if (this.waterGain && this.ctx) {
+      this.waterGain.gain.setTargetAtTime(this.waterEnabled ? val : 0, this.ctx.currentTime, 0.05);
+    }
+  }
+
+  toggleFire() {
+    this.fireEnabled = !this.fireEnabled;
+    this.setFire(this.fireVol);
+    return this.fireEnabled;
+  }
+
+  toggleWater() {
+    this.waterEnabled = !this.waterEnabled;
+    this.setWater(this.waterVol);
+    return this.waterEnabled;
+  }
+}
+
+const natureAudio = new NatureAudioEngine();
+const audioPod = document.getElementById('audioPod');
+const audioToggle = document.getElementById('audioToggle');
+const audioBadge = document.getElementById('audioStateBadge');
+const fireToggle = document.getElementById('fireToggle');
+const waterToggle = document.getElementById('waterToggle');
+const fireVolSlider = document.getElementById('fireVol');
+const waterVolSlider = document.getElementById('waterVol');
+const masterVolSlider = document.getElementById('masterVol');
+const masterVolVal = document.getElementById('masterVolVal');
+
+audioToggle.addEventListener('click', () => {
+  if (!natureAudio.isPlaying) {
+    natureAudio.start();
+    audioPod.classList.add('playing');
+    audioBadge.textContent = 'ON';
+  } else {
+    natureAudio.stop();
+    audioPod.classList.remove('playing');
+    audioBadge.textContent = 'OFF';
+  }
+});
+
+fireToggle.addEventListener('click', () => {
+  const active = natureAudio.toggleFire();
+  fireToggle.classList.toggle('active', active);
+  fireToggle.textContent = active ? 'ON' : 'OFF';
+});
+
+waterToggle.addEventListener('click', () => {
+  const active = natureAudio.toggleWater();
+  waterToggle.classList.toggle('active', active);
+  waterToggle.textContent = active ? 'ON' : 'OFF';
+});
+
+fireVolSlider.addEventListener('input', (e) => natureAudio.setFire(e.target.value / 100));
+waterVolSlider.addEventListener('input', (e) => natureAudio.setWater(e.target.value / 100));
+masterVolSlider.addEventListener('input', (e) => {
+  const val = e.target.value;
+  masterVolVal.textContent = val + '%';
+  natureAudio.setMaster(val / 100);
+});
+
+/* ----------------------------------------------------
+   4. 3D INTERACTIVE TILT SYSTEM (Perspective & Glare)
+---------------------------------------------------- */
+const tiltElements = document.querySelectorAll('.brand-card, .g-card, .about-logo-card, .feat, .hero-logos-trio');
+
+tiltElements.forEach(card => {
+  let isHovered = false;
+  card.addEventListener('mouseenter', () => { isHovered = true; });
+  card.addEventListener('mousemove', (e) => {
+    if (!isHovered) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const px = (x / rect.width - 0.5);
+    const py = (y / rect.height - 0.5);
+
+    card.style.transform = `perspective(1000px) rotateX(${py * -14}deg) rotateY(${px * 16}deg) translateZ(14px)`;
+    card.style.setProperty('--gx', `${(x / rect.width) * 100}%`);
+    card.style.setProperty('--gy', `${(y / rect.height) * 100}%`);
+  });
+
+  card.addEventListener('mouseleave', () => {
+    isHovered = false;
+    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)`;
+  });
+});
+
+// Hero 3D Parallax Mouse Tracking
+const heroContent = document.querySelector('.hero-content');
+window.addEventListener('mousemove', (e) => {
+  if (!heroContent) return;
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const dx = (e.clientX - cx) / cx;
+  const dy = (e.clientY - cy) / cy;
+  heroContent.style.transform = `perspective(1200px) rotateY(${dx * 5}deg) rotateX(${dy * -5}deg) translateZ(20px)`;
+});
+
+/* ----------------------------------------------------
+   5. 3D AMBIENT PARTICLES (Golden Embers & Water Dew)
+---------------------------------------------------- */
+(function(){
+  const canvas = document.getElementById('ambientCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resize(){
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  const particles = [];
+  const COUNT = 38;
+
+  for (let i = 0; i < COUNT; i++) {
+    const isEmber = i % 2 === 0;
+    particles.push({
+      type: isEmber ? 'ember' : 'water',
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: isEmber ? Math.random() * 3 + 1.5 : Math.random() * 2.5 + 1.2,
+      speedY: isEmber ? -(Math.random() * 0.7 + 0.3) : (Math.random() * 0.5 + 0.2),
+      speedX: (Math.random() - 0.5) * 0.4,
+      opacity: Math.random() * 0.6 + 0.25,
+      flicker: Math.random() * 0.03 + 0.01,
+      sway: Math.random() * 6.28
+    });
+  }
+
+  let animId;
+  function animate(){
+    ctx.clearRect(0, 0, width, height);
+
+    particles.forEach(p => {
+      p.sway += 0.02;
+      p.x += p.speedX + Math.sin(p.sway) * 0.35;
+      p.y += p.speedY;
+
+      if (p.type === 'ember') {
+        if (p.y < -10) { p.y = height + 10; p.x = Math.random() * width; }
+      } else {
+        if (p.y > height + 10) { p.y = -10; p.x = Math.random() * width; }
+      }
+      if (p.x < -10) p.x = width + 10;
+      if (p.x > width + 10) p.x = -10;
+
+      const alpha = Math.max(0.1, Math.min(0.85, p.opacity + Math.sin(p.sway * 2) * 0.15));
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      if (p.type === 'ember') {
+        ctx.fillStyle = `rgba(232, 197, 106, ${alpha})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(212, 165, 55, 0.7)';
+      } else {
+        ctx.fillStyle = `rgba(180, 225, 255, ${alpha * 0.75})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'rgba(100, 190, 255, 0.5)';
+      }
+      ctx.fill();
+    });
+
+    animId = requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(animId);
+    else animate();
+  });
+})();
+</script>
+</body>
+</html>
